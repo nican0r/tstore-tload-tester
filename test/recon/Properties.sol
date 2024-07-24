@@ -8,6 +8,8 @@ abstract contract Properties is Setup, Asserts {
     function invariant_giftSent() public returns (bool) {
         if (generosity.called()) {
             return generosity.sentGifts(address(this));
+        } else {
+            return true;
         }
     }
 }
