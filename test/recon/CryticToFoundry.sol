@@ -9,11 +9,13 @@ import "forge-std/console2.sol";
 contract CryticToFoundry is Test, TargetFunctions, FoundryAsserts {
     function setUp() public {
         setup();
-
-        targetContract(address(counter));
     }
 
-    function test_crytic() public {
-        // TODO: add failing property tests here for debugging
+    function test_claimGift1() public {
+        generosity_claimGift1();
+    }
+
+    function test_claimGift2() public {
+        generosity_claimGift2();
     }
 }

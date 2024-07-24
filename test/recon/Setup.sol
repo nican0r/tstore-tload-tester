@@ -2,12 +2,13 @@
 pragma solidity ^0.8.0;
 
 import {BaseSetup} from "@chimera/BaseSetup.sol";
-import "src/Counter.sol";
+import "src/Generosity.sol";
 
 abstract contract Setup is BaseSetup {
-    Counter counter;
+    Generosity generosity;
 
     function setup() internal virtual override {
-        counter = new Counter();
+        generosity = new Generosity();
+        (bool success, ) = address(generosity).call{value: 42 ether}("");
     }
 }

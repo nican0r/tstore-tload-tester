@@ -6,17 +6,16 @@ import {Setup} from "./Setup.sol";
 // ghost variables for tracking state variable values before and after function calls
 abstract contract BeforeAfter is Setup {
     struct Vars {
-        uint256 counter_number;
+        bool giftSent;
     }
 
     Vars internal _before;
     Vars internal _after;
 
-    function __before() internal {
-        _before.counter_number = counter.number();
+    function __before(address user) internal {
+        _before.giftSent = generosity.sentGifts(user);
     }
-
-    function __after() internal {
-        _after.counter_number = counter.number();
+    function __after(address user) internal {
+        _after.giftSent = generosity.sentGifts(user);
     }
 }

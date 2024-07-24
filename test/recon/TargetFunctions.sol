@@ -11,31 +11,21 @@ abstract contract TargetFunctions is
     Properties,
     BeforeAfter
 {
-    function counter_increment() public {
-        counter.increment();
+    function generosity_claimGift1() public {
+        generosity.claimGift();
+
+        t(generosity.sentGifts(address(this)), "generosity_claimGift1 fails");
     }
 
-    function counter_setNumber1(uint256 newNumber) public {
-        // example assertion test replicating testFuzz_SetNumber
-        try counter.setNumber(newNumber) {
-            if (newNumber != 0) {
-                t(counter.number() == newNumber, "number != newNumber");
-            }
-        } catch {
-            t(false, "setNumber reverts");
-        }
+    function generosity_claimGift2() public {
+        __before(address(this));
+
+        generosity.claimGift();
+
+        __after(address(this));
+
+        t(_before.giftSent != _after.giftSent, "generosity_claimGift2 fails");
     }
 
-    function counter_setNumber2(uint256 newNumber) public {
-        // same example assertion test as counter_setNumber1 using ghost variables
-        __before();
-
-        counter.setNumber(newNumber);
-
-        __after();
-
-        if (newNumber != 0) {
-            t(_after.counter_number == newNumber, "number != newNumber");
-        }
-    }
+    fallback() external payable {}
 }

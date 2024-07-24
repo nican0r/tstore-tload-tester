@@ -5,8 +5,9 @@ import {Asserts} from "@chimera/Asserts.sol";
 import {Setup} from "./Setup.sol";
 
 abstract contract Properties is Setup, Asserts {
-    // example property test that gets run after each call in sequence
-    function invariant_number_never_zero() public returns (bool) {
-        return counter.number() != 0;
+    function invariant_giftSent() public returns (bool) {
+        if (generosity.called()) {
+            return generosity.sentGifts(address(this));
+        }
     }
 }
